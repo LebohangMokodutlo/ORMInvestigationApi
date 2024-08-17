@@ -6,7 +6,6 @@ using MyDotNetApi.Models;
 namespace MyDotNetApi.Controllers
 {
     [Route("[controller]")]
-    [ApiController]
     public class UserControllerEFCore : ControllerBase
     {
         private readonly DataContextEF _context;
@@ -17,10 +16,10 @@ namespace MyDotNetApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Users>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<Users>>> GetAsync()
         {
             var users = await _context.UsersTable.ToListAsync();
-            return users;
+            return Ok(users);
         }
     }
 }
