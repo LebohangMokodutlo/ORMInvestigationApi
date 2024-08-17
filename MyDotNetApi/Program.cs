@@ -1,4 +1,10 @@
+using FluentAssertions.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using MyDotNetApi.Data;
 using MyDotNetApi.Services;
+using Microsoft.Data.SqlClient;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddDbContext<DataContextEF>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddCors((options) =>
 {
